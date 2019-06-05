@@ -26,24 +26,24 @@ ricardo_empty_case() ->
 ricardo_single_case() ->
     Isolate = nation:make(<<"isolated">>, [{<<"foo">>, 0.3}]),
     % specific efficiency does not matter, they produce everything
-    ?assertEqual(#{<<"isolated">> => [<<"foo">>]}, ricardo:optimize([Isolate])).
+    ?assertEqual(#{<<"isolated">> => <<"foo">>}, ricardo:optimize([Isolate])).
 
 % https://en.wikipedia.org/wiki/Comparative_advantage#Ricardo's_example
 ricardo_england_portugal_case() ->
     Eng = nation:make(<<"England">>, [{<<"cloth">>, 100}, {<<"wine">>, 120}]),
     Por = nation:make(<<"Portugal">>, [{<<"cloth">>, 90}, {<<"wine">>, 80}]),
     Results = ricardo:optimize([Eng, Por]),
-    ?assertEqual(#{<<"England">>  => [<<"cloth">>],
-                   <<"Portugal">> => [<<"wine">>]}, Results).
+    ?assertEqual(#{<<"England">>  => <<"cloth">>,
+                   <<"Portugal">> => <<"wine">>}, Results).
 
 triple_case() ->
     Eng = nation:make(<<"England">>, [{<<"beer">>, 110}, {<<"cloth">>, 100}, {<<"wine">>, 120}]),
     Ger = nation:make(<<"Germany">>, [{<<"beer">>, 50}, {<<"cloth">>, 80}, {<<"wine">>, 90}]),
     Por = nation:make(<<"Portugal">>, [{<<"beer">>, 100}, {<<"cloth">>, 90}, {<<"wine">>, 80}]),
     Results = ricardo:optimize([Eng, Ger, Por]),
-    ?assertEqual(#{<<"England">>  => [<<"cloth">>],
-                   <<"Germany">>  => [<<"beer">>],
-                   <<"Portugal">> => [<<"wine">>]}, Results).
+    ?assertEqual(#{<<"England">>  => <<"cloth">>,
+                   <<"Germany">>  => <<"beer">>,
+                   <<"Portugal">> => <<"wine">>}, Results).
 
 quadruple_case() ->
     Eng = nation:make(<<"England">>, [{<<"beer">>, 110}, {<<"cheese">>, 100}, {<<"cloth">>, 100}, {<<"wine">>, 120}]),
@@ -51,10 +51,10 @@ quadruple_case() ->
     Ger = nation:make(<<"Germany">>, [{<<"beer">>, 50}, {<<"cheese">>, 80}, {<<"cloth">>, 80}, {<<"wine">>, 90}]),
     Por = nation:make(<<"Portugal">>, [{<<"beer">>, 100}, {<<"cheese">>, 90}, {<<"cloth">>, 90}, {<<"wine">>, 80}]),
     Results = ricardo:optimize([Eng, Fra, Ger, Por]),
-    ?assertEqual(#{<<"England">>  => [<<"cloth">>],
-                   <<"France">>   => [<<"cheese">>],
-                   <<"Germany">>  => [<<"beer">>],
-                   <<"Portugal">> => [<<"wine">>]}, Results).
+    ?assertEqual(#{<<"England">>  => <<"cloth">>,
+                   <<"France">>   => <<"cheese">>,
+                   <<"Germany">>  => <<"beer">>,
+                   <<"Portugal">> => <<"wine">>}, Results).
 
 %%% PRIVATE FUNCTIONS
 

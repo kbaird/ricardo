@@ -13,14 +13,8 @@
 -spec optimize([nation()]) -> map().
 optimize([]) -> maps:new();
 
-optimize([Nation]) ->
-    Name = nation:name(Nation),
-    Exports = nation:exports(Nation),
-    ExportNames = [ EN || {EN, _} <- Exports ],
-    #{Name => ExportNames};
-
 optimize(Nations) ->
-    NationNameWithBest = [ {nation:name(Nation), [best_export(Nation)]} || Nation <- Nations ],
+    NationNameWithBest = [ {nation:name(N), best_export(N)} || N <- Nations ],
     maps:from_list(NationNameWithBest).
 
 %%====================================================================
