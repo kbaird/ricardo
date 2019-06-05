@@ -3,7 +3,7 @@
 -record(export,
     {
         name :: name(),
-        efficiency :: number()
+        hours :: number()
     }).
 -type export() :: #export{}.
 

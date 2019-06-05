@@ -19,7 +19,7 @@ make_case() ->
     Name = nation:name(Luna),
     Exports = nation:exports(Luna),
     ?assertEqual(<<"luna">>, Name),
-    ?assertEqual([<<"moonrocks">>], Exports).
+    ?assertEqual([{<<"moonrocks">>, 0.1}], Exports).
 
 %%% PRIVATE FUNCTIONS
 

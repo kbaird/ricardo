@@ -14,17 +14,18 @@
 %%====================================================================
 -spec make(name(), [export(), ...]) -> nation().
 make(Name, RawExports) ->
-    Exports = [#export{name = EN, efficiency = EE} || {EN, EE} <- RawExports],
+    Exports = [#export{name = EN, hours = EH} || {EN, EH} <- RawExports],
     #nation{name = Name, exports = Exports}.
 
 -spec name(nation()) -> name().
 name(#nation{name = Name}) -> Name.
 
--spec exports(nation()) -> [export(), ...].
-exports(#nation{exports = Es}) -> [export_name(E) || E <- Es].
+-spec exports(nation()) -> [{name(), number()}, ...].
+exports(#nation{exports = Exports}) ->
+    [format_export(E) || E <- Exports].
 
 %%====================================================================
 %% Internal functions
 %%====================================================================
--spec export_name(export()) -> name().
-export_name(#export{name = Name}) -> Name.
+-spec format_export(export()) -> {name(), number()}.
+format_export(#export{name = Name, hours = Hours}) -> {Name, Hours}.

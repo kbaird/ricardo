@@ -13,8 +13,8 @@ ricardo_test_() ->
             fun ricardo_teardown/1,
             [
                 fun ricardo_empty_case/0,
-                fun ricardo_single_case/0%,
-                %fun ricardo_monocrops_case/0
+                fun ricardo_single_case/0,
+                fun ricardo_england_portugal_case/0
             ]
     }.
 
@@ -24,13 +24,14 @@ ricardo_empty_case() ->
 ricardo_single_case() ->
     Isolate = nation:make(<<"isolated">>, [{<<"foo">>, 0.3}]),
     % specific efficiency does not matter, they produce everything
-    ?assertEqual(#{<<"isolated">> => #{<<"foo">> => 1}}, ricardo:optimize([Isolate])).
+    ?assertEqual(#{<<"isolated">> => [<<"foo">>]}, ricardo:optimize([Isolate])).
 
-ricardo_monocrops_case() ->
-    ProducesOnlyFoo = nation:make(<<"foosource">>, [{<<"foo">>, 1}]),
-    ProducesOnlyBar = nation:make(<<"barsource">>, [{<<"bar">>, 1}]),
-    Results = ricardo:optimize([ProducesOnlyFoo, ProducesOnlyBar]),
-    ?assertEqual(true, Results).
+% https://en.wikipedia.org/wiki/Comparative_advantage#Ricardo's_example
+ricardo_england_portugal_case() ->
+    Eng = nation:make(<<"England">>, [{<<"cloth">>, 100}, {<<"wine">>, 120}]),
+    Por = nation:make(<<"Portugal">>, [{<<"cloth">>, 90}, {<<"wine">>, 80}]),
+    Results = ricardo:optimize([Eng, Por]),
+    ?assertEqual(#{<<"England">> => [<<"cloth">>], <<"Portugal">> => [<<"wine">>]}, Results).
 
 %%% PRIVATE FUNCTIONS
 
