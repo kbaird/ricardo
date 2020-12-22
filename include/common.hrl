@@ -1,4 +1,5 @@
 -type name() :: binary().
+-type hours() :: number().
 
 -record(export,
     {
